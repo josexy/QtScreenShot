@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
         ifs.close();
         try{
             if(doc.object()->value("settings")->value("language")->data().data3){
-                if(translator.load("UI_Translation_zh_CN.qm")){
+                if(translator.load(":/ts/res/translator/UI_Translation_zh_CN.qm")){
                     QCoreApplication::installTranslator(&translator);
                     __LOG__("Load translator ts file successfully!",1);
                 }else{
