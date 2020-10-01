@@ -1,0 +1,2 @@
+# QtScreenShot
+QtScreenShot by Qt
