@@ -762,7 +762,6 @@ void CaptureWindow::mouseReleaseEvent(QMouseEvent *event)
 
         if(region.width() ==0 ||region.height()==0)
             return;
-
         pixelPanel->hide();
 
         // grab window pixmap to pixmap object
@@ -787,7 +786,10 @@ void CaptureWindow::mouseReleaseEvent(QMouseEvent *event)
             so.bgcolor=qCore->getBgColor();
             so.fill=fill;
             so.isblur=false;
-            if(!checkValidPaintRegion()||!checkValidPoint())
+
+            if(!checkValidPoint())
+                goto invalid;
+            if(shapeType!=ShapeType::Point && !checkValidPaintRegion())
                 goto invalid;
 
             if(shapeType==ShapeType::Blur||shapeType==ShapeType::Rectangle||shapeType==ShapeType::Circle){
@@ -813,7 +815,6 @@ void CaptureWindow::mouseReleaseEvent(QMouseEvent *event)
                 so.st=shapeType;
                 so.ps.push_back(paintPoint);
                 sos.push_back(so);
-
             }else if(shapeType==ShapeType::Curve){
                 so.st=shapeType;
                 for(auto pos:freeLine) so.ps.push_back(pos);
