@@ -29,4 +29,7 @@
         <file>res/images/sharp-arrow.svg</file>
         <file>res/images/blur.svg</file>
     </qresource>
+    <qresource prefix="/ts">
+        <file>res/translator/UI_Translation_zh_CN.qm</file>
+    </qresource>
 </RCC>
