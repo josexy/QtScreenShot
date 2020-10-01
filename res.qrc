@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/svg">
+        <file>res/images/bold.svg</file>
+        <file>res/images/border-rect.svg</file>
+        <file>res/images/cancel.svg</file>
+        <file>res/images/circle.svg</file>
+        <file>res/images/copy.svg</file>
+        <file>res/images/curve.svg</file>
+        <file>res/images/dots.svg</file>
+        <file>res/images/erase.svg</file>
+        <file>res/images/filled-circle.svg</file>
+        <file>res/images/italic.svg</file>
+        <file>res/images/line.svg</file>
+        <file>res/images/pen.svg</file>
+        <file>res/images/rectangular.svg</file>
+        <file>res/images/redo.svg</file>
+        <file>res/images/save.svg</file>
+        <file>res/images/strikeout.svg</file>
+        <file>res/images/text.svg</file>
+        <file>res/images/triangle.svg</file>
+        <file>res/images/underline.svg</file>
+        <file>res/images/undo.svg</file>
+        <file>res/images/shape.svg</file>
+        <file>res/images/logo.svg</file>
+        <file>res/images/erase-rectangular.svg</file>
+        <file>res/images/erase-rectangular0.svg</file>
+        <file>res/images/arrow.svg</file>
+        <file>res/images/tri-arrow.svg</file>
+        <file>res/images/sharp-arrow.svg</file>
+        <file>res/images/blur.svg</file>
+    </qresource>
+</RCC>
