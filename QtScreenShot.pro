@@ -100,12 +100,13 @@ HEADERS += core/core.h\
 FORMS +=\
     ui/settingswindow.ui
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 RESOURCES += \
     res.qrc
 
 TRANSLATIONS = languages/UI_Translation_zh_CN.ts
+
+TARGET = bin/QtScreenShot
+MOC_DIR += build
+OBJECTS_DIR += build
+RCC_DIR += build
+
