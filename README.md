@@ -29,5 +29,8 @@ make
 ./QtScreenShot
 ```
 
+### Example
 
+<img src="screenshots/01.png" style="zoom:80%;" />
 
+<img src="screenshots/02.png" style="zoom:80%;" />
