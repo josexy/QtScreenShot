@@ -53,6 +53,7 @@ void CaptureWindow::init()
     setFixedSize(screen->availableGeometry().size());
 
     setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint|Qt::Tool);
+    setWindowState(Qt::WindowActive|Qt::WindowFullScreen);
 
     QPalette palatte=palette();
     qCore->setBgPixmap(qCore->getPrimaryScreen()->grabWindow(0));
