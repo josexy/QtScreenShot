@@ -7,25 +7,25 @@ QtScreenShot by Qt
 
 ```bash
 git clone https://github.com/josexy/QtScreenShot.git --recursive
+cd QtScreenShot
 ```
 
 #### QHotkey
 
 ```bash
-cd QtScreenShot/QHotkey
-qmake ..
+cd QHotkey
+qmake
 make
 make install
-cd ../..
+cd ..
 ```
 
 #### QtScreenShot
 
 ```bash
-mkdir build_qtscreenshot
-cd build_qtscreenshot
-qmake ..
+qmake
 make
+cd bin
 ./QtScreenShot
 ```
 
