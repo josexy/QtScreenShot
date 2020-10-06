@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.1" language="zh_CN">
+<TS version="2.0" language="zh_CN">
 <context>
     <name>ArrowTool</name>
     <message>
         <source>arrow1</source>
-        <translation type="vanished">箭头1</translation>
+        <translation>箭头1</translation>
     </message>
     <message>
         <location filename="../tool/arrowtool.cpp" line="21"/>
@@ -13,12 +13,10 @@
         <translation>箭头1</translation>
     </message>
     <message>
-        <location filename="../tool/arrowtool.cpp" line="22"/>
         <source>line arrow</source>
         <translation>箭头2</translation>
     </message>
     <message>
-        <location filename="../tool/arrowtool.cpp" line="23"/>
         <source>sharp arrow</source>
         <translation>箭头3</translation>
     </message>
@@ -42,14 +40,6 @@
     </message>
 </context>
 <context>
-    <name>InputTextEdit</name>
-    <message>
-        <location filename="../ui/inputtextedit.ui" line="14"/>
-        <source>Form</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
     <name>PenTool</name>
     <message>
         <location filename="../tool/pentool.cpp" line="23"/>
@@ -68,6 +58,11 @@
     </message>
     <message>
         <location filename="../tool/pentool.cpp" line="57"/>
+        <source>Dash Line</source>
+        <translation>虚线</translation>
+    </message>
+    <message>
+        <location filename="../tool/pentool.cpp" line="58"/>
         <source>Curve</source>
         <translation>曲线</translation>
     </message>
@@ -75,17 +70,12 @@
 <context>
     <name>PixelPanel</name>
     <message>
-        <location filename="../ui/pixelpanel.ui" line="14"/>
-        <source>Form</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="../widget/pixelpanel.cpp" line="99"/>
+        <location filename="../widget/pixelpanel.cpp" line="100"/>
         <source>[C] copy color value</source>
         <translation>[C] 复制颜色值</translation>
     </message>
     <message>
-        <location filename="../widget/pixelpanel.cpp" line="100"/>
+        <location filename="../widget/pixelpanel.cpp" line="101"/>
         <source>[Shift+A] RGB/HEX</source>
         <translation>[Shift+A] RGB/HEX</translation>
     </message>
@@ -114,7 +104,7 @@
     </message>
     <message>
         <source>Start on boot:</source>
-        <translation type="vanished">开机时启动:</translation>
+        <translation>开机时启动:</translation>
     </message>
     <message>
         <location filename="../ui/settingswindow.ui" line="75"/>
@@ -358,52 +348,57 @@
         <source>Triangle</source>
         <translation>三角形</translation>
     </message>
+    <message>
+        <location filename="../tool/shapetool.cpp" line="46"/>
+        <source>Vertical triangle</source>
+        <translation>直角三角形</translation>
+    </message>
 </context>
 <context>
     <name>TMain</name>
     <message>
-        <location filename="../tmain.cpp" line="38"/>
+        <location filename="../tmain.cpp" line="39"/>
         <source>Qt screenshot tool</source>
         <translation>Qt 截屏工具</translation>
     </message>
     <message>
-        <location filename="../tmain.cpp" line="48"/>
+        <location filename="../tmain.cpp" line="49"/>
         <source>Capture desktop</source>
         <translation>截取桌面</translation>
     </message>
     <message>
-        <location filename="../tmain.cpp" line="51"/>
+        <location filename="../tmain.cpp" line="53"/>
         <source>Capture desktop and copy</source>
         <translation>截取桌面并复制</translation>
     </message>
     <message>
-        <location filename="../tmain.cpp" line="54"/>
+        <location filename="../tmain.cpp" line="57"/>
         <source>General capture</source>
         <translation>常规截屏</translation>
     </message>
     <message>
-        <location filename="../tmain.cpp" line="57"/>
+        <location filename="../tmain.cpp" line="61"/>
         <source>Settings dialog</source>
         <translation>设置对话框</translation>
     </message>
     <message>
-        <location filename="../tmain.cpp" line="60"/>
+        <location filename="../tmain.cpp" line="65"/>
         <source>Quit</source>
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../tmain.cpp" line="171"/>
-        <location filename="../tmain.cpp" line="179"/>
+        <location filename="../tmain.cpp" line="198"/>
+        <location filename="../tmain.cpp" line="205"/>
         <source>QtScreenShot notification</source>
         <translation>QtScreenShot 通知</translation>
     </message>
     <message>
-        <location filename="../tmain.cpp" line="171"/>
+        <location filename="../tmain.cpp" line="198"/>
         <source>The image has been saved to a file</source>
         <translation>图像已保存到文件</translation>
     </message>
     <message>
-        <location filename="../tmain.cpp" line="179"/>
+        <location filename="../tmain.cpp" line="205"/>
         <source>The image has been saved to the clipboard</source>
         <translation>图像已保存到剪切板</translation>
     </message>
