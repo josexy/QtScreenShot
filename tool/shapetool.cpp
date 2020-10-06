@@ -11,7 +11,7 @@ ShapeTool::ShapeTool(QWidget *parent) :
     BaseTool(parent),
     __w((CaptureWindow*)parent)
 {
-    setFixedSize(360,50);
+    setFixedSize(390,50);
 
     initUI();
 }
@@ -43,12 +43,13 @@ void ShapeTool::initUI()
     btnRectangle=new BaseButton(qCore->svgImagePath()+QStringLiteral("rectangular.svg"),tr("Rectangle"),this);
     btnCircle=new BaseButton(qCore->svgImagePath()+QStringLiteral("circle.svg"),tr("Circle"),this);
     btnTriangle=new BaseButton(qCore->svgImagePath()+QStringLiteral("triangle.svg"),tr("Triangle"),this);
-
+    btnRTriangle=new BaseButton(qCore->svgImagePath()+QStringLiteral("rtriangle.svg"),tr("Vertical triangle"),this);
     hL_Options->addWidget(btnBorder);
     hL_Options->addWidget(btnFill);
     hL_Options->addWidget(btnRectangle);
     hL_Options->addWidget(btnCircle);
     hL_Options->addWidget(btnTriangle);
+    hL_Options->addWidget(btnRTriangle);
     hL_Options->insertWidget(2,separator);
 
     hboxL->addLayout(hL_Options);
@@ -59,7 +60,7 @@ void ShapeTool::initUI()
     connect(btnRectangle,SIGNAL(clicked(bool)),this,SLOT(on_btnRectangle_clicked()));
     connect(btnCircle,SIGNAL(clicked(bool)),this,SLOT(on_btnCircle_clicked()));
     connect(btnTriangle,SIGNAL(clicked(bool)),this,SLOT(on_btnTriangle_clicked()));
-
+    connect(btnRTriangle,SIGNAL(clicked(bool)),this,SLOT(on_btnRTriangle_clicked()));
     btnBorder->setChecked(true);
 }
 
@@ -70,12 +71,15 @@ void ShapeTool::singlePressed()
     btnRectangle->setChecked(false);
     btnCircle->setChecked(false);
     btnTriangle->setChecked(false);
+    btnRTriangle->setChecked(false);
     if(qCore->getSingleShape()==ShapeType::Rectangle)
         btnRectangle->setChecked(true);
     else if(qCore->getSingleShape()==ShapeType::Circle)
         btnCircle->setChecked(true);
     else if(qCore->getSingleShape()==ShapeType::Triangle)
         btnTriangle->setChecked(true);
+    else if(qCore->getSingleShape()==ShapeType::RTriangle)
+        btnRTriangle->setChecked(true);
 }
 
 void ShapeTool::on_btnRectangle_clicked()
@@ -99,6 +103,15 @@ void ShapeTool::on_btnCircle_clicked()
 void ShapeTool::on_btnTriangle_clicked()
 {
     __w->shapeType=ShapeType::Triangle;
+    __w->setCursor(Qt::CrossCursor);
+    qCore->setSingleShape(__w->shapeType);
+    singlePressed();
+    __w->penTool->singlePressed();
+}
+
+void ShapeTool::on_btnRTriangle_clicked()
+{
+    __w->shapeType=ShapeType::RTriangle;
     __w->setCursor(Qt::CrossCursor);
     qCore->setSingleShape(__w->shapeType);
     singlePressed();

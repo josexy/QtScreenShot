@@ -20,6 +20,8 @@ protected slots:
     void on_btnRectangle_clicked();
     void on_btnCircle_clicked();
     void on_btnTriangle_clicked();
+    void on_btnRTriangle_clicked();
+
     void on_btnBorder_clicked();
     void on_btnFill_clicked();
 
@@ -32,6 +34,7 @@ private:
     BaseButton *btnRectangle;
     BaseButton *btnCircle;
     BaseButton *btnTriangle;
+    BaseButton *btnRTriangle;
 };
 
 #endif

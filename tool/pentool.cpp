@@ -9,7 +9,7 @@ PenTool::PenTool(QWidget *parent) :
     BaseTool(parent),
     __w((CaptureWindow*)parent)
 {
-    setFixedSize(300,50);
+    setFixedSize(350,50);
 
     initUI();
 }
@@ -54,10 +54,12 @@ void PenTool::initUI()
 
     btnPoint=new BaseButton(qCore->svgImagePath()+QStringLiteral("dots.svg"),tr("Point"),this);
     btnLine=new BaseButton(qCore->svgImagePath()+QStringLiteral("line.svg"),tr("Line"),this);
+    btnDashLine=new BaseButton(qCore->svgImagePath()+QStringLiteral("dashline.svg"),tr("Dash Line"),this);
     btnCurve=new BaseButton(qCore->svgImagePath()+QStringLiteral("curve.svg"),tr("Curve"),this);
 
     hL_Options->addWidget(btnPoint);
     hL_Options->addWidget(btnLine);
+    hL_Options->addWidget(btnDashLine);
     hL_Options->addWidget(btnCurve);
 
     hboxL->addLayout(hL_Options);
@@ -65,6 +67,7 @@ void PenTool::initUI()
 
     connect(btnPoint,&BaseButton::clicked,this,&PenTool::on_btnPoint_clicked);
     connect(btnLine,&BaseButton::clicked,this,&PenTool::on_btnLine_clicked);
+    connect(btnDashLine,&BaseButton::clicked,this,&PenTool::on_btnDashLine_clicked);
     connect(btnCurve,&BaseButton::clicked,this,&PenTool::on_btnCurve_clicked);
 }
 
@@ -73,12 +76,24 @@ void PenTool::singlePressed()
     btnPoint->setChecked(false);
     btnLine->setChecked(false);
     btnCurve->setChecked(false);
+    btnDashLine->setChecked(false);
     if(qCore->getSingleShape()==ShapeType::Point)
         btnPoint->setChecked(true);
     else if(qCore->getSingleShape()==ShapeType::Line)
         btnLine->setChecked(true);
     else if(qCore->getSingleShape()==ShapeType::Curve)
         btnCurve->setChecked(true);
+    else if(qCore->getSingleShape()==ShapeType::DashLine)
+        btnDashLine->setChecked(true);
+}
+
+void PenTool::on_btnDashLine_clicked()
+{
+    __w->shapeType=ShapeType::DashLine;
+    __w->setCursor(Qt::CrossCursor);
+    qCore->setSingleShape(__w->shapeType);
+    singlePressed();
+    __w->shapeTool->singlePressed();
 }
 
 void PenTool::on_btnPoint_clicked()

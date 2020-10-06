@@ -21,6 +21,7 @@ public:
 protected slots:
     void on_btnPoint_clicked();
     void on_btnLine_clicked();
+    void on_btnDashLine_clicked();
     void on_btnCurve_clicked();
     void on_combPenSize_currentTextChanged(const QString &);
 
@@ -32,6 +33,7 @@ private:
     BaseButton *btnPoint;
     BaseButton *btnLine;
     BaseButton *btnCurve;
+    BaseButton *btnDashLine;
 };
 
 #endif
