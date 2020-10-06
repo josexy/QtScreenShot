@@ -43,7 +43,7 @@ void TMain::init()
         }
     });
 
-    menu=new QMenu(this);
+    menu=new QMenu();
 
     capture_AllScreen=new QAction(this);
     capture_AllScreen->setText(tr("Capture desktop"));
