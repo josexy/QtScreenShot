@@ -9,7 +9,7 @@ ToolWidget::ToolWidget(QWidget *parent) :
     BaseTool(parent),captureW((CaptureWindow*)parent)
 {
     setAttribute(Qt::WA_TranslucentBackground);
-    setFixedSize(450,50);
+    setFixedSize(500,50);
 
     initUI();
 }
@@ -26,6 +26,7 @@ void ToolWidget::initUI()
     btnText=new BaseButton(qCore->svgImagePath()+QStringLiteral("text.svg"),tr("text tool"),this);
     btnArrow=new BaseButton(qCore->svgImagePath()+QStringLiteral("arrow.svg"),tr("arrow tool"),this);
     btnBlur=new BaseButton(qCore->svgImagePath()+QStringLiteral("blur.svg"),tr("blur"),this);
+    btnBrush=new BaseButton(qCore->svgImagePath()+QStringLiteral("brush.svg"),tr("Brush tool"),this);
     btnErase=new BaseButton(qCore->svgImagePath()+QStringLiteral("erase.svg"),tr("erase tool"),this);
     btnUndo=new BaseButton(qCore->svgImagePath()+QStringLiteral("undo.svg"),tr("undo"),this,false);
     btnRedo=new BaseButton(qCore->svgImagePath()+QStringLiteral("redo.svg"),tr("redo"),this,false);
@@ -38,6 +39,7 @@ void ToolWidget::initUI()
     hboxL->addWidget(btnText);
     hboxL->addWidget(btnArrow);
     hboxL->addWidget(btnBlur);
+    hboxL->addWidget(btnBrush);
     hboxL->addWidget(btnErase);
     hboxL->addWidget(btnUndo);
     hboxL->addWidget(btnRedo);
@@ -57,6 +59,8 @@ void ToolWidget::initUI()
     connect(btnSave,SIGNAL(clicked(bool)),this,SLOT(on_btnSave2File_clicked()));
     connect(btnCopy,SIGNAL(clicked(bool)),this,SLOT(on_btnCopyClipboard_clicked()));
     connect(btnBlur,SIGNAL(clicked(bool)),this,SLOT(on_btnBlur_clicked()));
+    connect(btnBrush,SIGNAL(clicked(bool)),this,SLOT(on_btnBrush_clicked()));
+
 }
 
 ToolWidget::~ToolWidget() {}
@@ -69,6 +73,7 @@ void ToolWidget::singlePressed()
     btnText->setChecked(false);
     btnArrow->setChecked(false);
     btnBlur->setChecked(false);
+    btnBrush->setChecked(false);
     switch (captureW->paintEventNotify) {
     case PaintEventNotify::Shape: btnShape->setChecked(true); break;
     case PaintEventNotify::Pen: btnPen->setChecked(true); break;
@@ -76,8 +81,31 @@ void ToolWidget::singlePressed()
     case PaintEventNotify::Text: btnText->setChecked(true); break;
     case PaintEventNotify::Arrow: btnArrow->setChecked(true); break;
     case PaintEventNotify::Blur: btnBlur->setChecked(true);break;
+    case PaintEventNotify::Brush: btnBrush->setChecked(true);break;
     default:break;
     }
+}
+
+void ToolWidget::on_btnBrush_clicked()
+{
+    captureW->paintEventNotify=PaintEventNotify::Brush;
+    captureW->shapeType=ShapeType::Brush;
+    captureW->painting=true;
+    captureW->resizing=false;
+    qCore->setSingleShape(captureW->shapeType);
+
+    captureW->eraseTool->hide();
+    captureW->inputTextEdit->hide();
+    captureW->penTool->hide();
+    captureW->textTool->hide();
+    captureW->arrowTool->hide();
+    captureW->shapeTool->hide();
+
+    captureW->shapeTool->singlePressed();
+    captureW->arrowTool->singlePressed();
+    captureW->penTool->singlePressed();
+    captureW->eraseTool->singlePressed();
+    singlePressed();
 }
 
 void ToolWidget::on_btnSave2File_clicked()
@@ -135,7 +163,6 @@ void ToolWidget::on_btnBlur_clicked()
     captureW->eraseTool->singlePressed();
     singlePressed();
 }
-
 
 void ToolWidget::on_btnShape_clicked()
 {

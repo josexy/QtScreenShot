@@ -30,6 +30,7 @@ protected slots:
     void on_btnUndo_clicked();
     void on_btnRedo_clicked();
     void on_btnBlur_clicked();
+    void on_btnBrush_clicked();
 private:
     CaptureWindow * captureW;
     stack<shape_object> restore;
@@ -40,6 +41,7 @@ private:
     BaseButton *btnArrow;
     BaseButton *btnErase;
     BaseButton *btnBlur;
+    BaseButton *btnBrush;
     BaseButton *btnUndo;
     BaseButton *btnRedo;
     BaseButton *btnCancel;
