@@ -5,7 +5,9 @@
 PenDrawer::PenDrawer(const shape_object &object, QPainter &p, QObject *parent)
     :Drawer(parent)
 {
-    if(object.st==ShapeType::Line){
+    if(object.st==ShapeType::Line || object.st==ShapeType::DashLine){
+        if(object.st==ShapeType::DashLine)
+            p.setPen(QPen(object.color,object.pensize,Qt::DashLine));
         QLineF line(object.ps.front(),object.ps.back());
         p.drawLine(line);
     }else if(object.st==ShapeType::Point){
