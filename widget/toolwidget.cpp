@@ -252,6 +252,7 @@ void ToolWidget::on_btnArrow_clicked()
 void ToolWidget::on_btnErase_clicked()
 {
     captureW->paintEventNotify=PaintEventNotify::Erase;
+    captureW->shapeType=ShapeType::None;
     captureW->painting=true;
     captureW->resizing=false;
 
