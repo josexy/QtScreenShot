@@ -44,7 +44,7 @@ enum class ShapeType{
     Rectangle,
     Circle,
     Triangle,
-    VTriangle,
+    RTriangle,
     // text
     Text,
     // erase
