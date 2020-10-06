@@ -465,47 +465,52 @@
     </message>
     <message>
         <location filename="../widget/toolwidget.cpp" line="29"/>
+        <source>Brush tool</source>
+        <translation>画刷</translation>
+    </message>
+    <message>
+        <location filename="../widget/toolwidget.cpp" line="30"/>
         <source>erase tool</source>
         <translation>橡皮擦</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="30"/>
+        <location filename="../widget/toolwidget.cpp" line="31"/>
         <source>undo</source>
         <translation>撤销</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="31"/>
+        <location filename="../widget/toolwidget.cpp" line="32"/>
         <source>redo</source>
         <translation>重做</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="32"/>
+        <location filename="../widget/toolwidget.cpp" line="33"/>
         <source>close</source>
         <translation>关闭</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="33"/>
+        <location filename="../widget/toolwidget.cpp" line="34"/>
         <source>save to file</source>
         <translation>保存到文件</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="34"/>
+        <location filename="../widget/toolwidget.cpp" line="35"/>
         <source>copy to clipboard</source>
         <translation>复制到剪贴板</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="92"/>
-        <location filename="../widget/toolwidget.cpp" line="105"/>
+        <location filename="../widget/toolwidget.cpp" line="120"/>
+        <location filename="../widget/toolwidget.cpp" line="133"/>
         <source>QtScreenShot notification</source>
         <translation>QtScreenShot 通知</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="92"/>
+        <location filename="../widget/toolwidget.cpp" line="120"/>
         <source>The image has been saved to a file</source>
         <translation>图像已保存到文件</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="105"/>
+        <location filename="../widget/toolwidget.cpp" line="133"/>
         <source>The image has been saved to the clipboard</source>
         <translation>图像已保存到剪切板</translation>
     </message>
