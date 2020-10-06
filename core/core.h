@@ -29,7 +29,8 @@ enum class PaintEventNotify{
     Text,
     Arrow,
     Erase,
-    Blur
+    Blur,
+    Brush
 };
 
 enum class ShapeType{
@@ -38,10 +39,12 @@ enum class ShapeType{
     Point,
     Curve,
     Line,
+    DashLine,
     // geometry
     Rectangle,
     Circle,
     Triangle,
+    VTriangle,
     // text
     Text,
     // erase
@@ -49,15 +52,17 @@ enum class ShapeType{
     // arrow
     TriArrow,
     // Blur
-    Blur
+    Blur,
+    Brush
 };
 
+
 struct shape_object{
-    QVector<QPoint>ps;
     QVector<QRect>rs;
-    ShapeType st;
+    QVector<QPoint>ps;
     QStringList ts;
 
+    ShapeType st;
     QFont font;
     QColor color;
     QColor bgcolor;
@@ -190,6 +195,7 @@ public:
     QColor getDotColor() const;
     void setDotColor(QColor);
 
+    int brushOpacity() const {return 60;}
     int blurRadius() const {return 10;}
     int borderPadding() const {return 12;}
     QString svgImagePath() const {return QStringLiteral(":/svg/res/images/");}
