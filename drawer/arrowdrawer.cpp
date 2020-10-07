@@ -1,14 +1,7 @@
 #include "arrowdrawer.h"
+#include "core/core_system.h"
 #include <QPainterPath>
 #include <cmath>
-
-QPointF getSecondPos(const QPointF& from, qreal angle,int length)
-{
-    qreal x=from.x()+length*cos(angle*3.1415926/180);
-    qreal y=from.y()+length*sin(angle*3.1415926/180);
-    return QPoint(x,y);
-}
-
 
 ArrowDrawer::ArrowDrawer(const QPoint &from, const QPoint &to,
                          int lineSize,QColor lineColor,
