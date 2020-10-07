@@ -68,6 +68,14 @@
     </message>
 </context>
 <context>
+    <name>PinWidget</name>
+    <message>
+        <location filename="../widget/pinwidget.cpp" line="9"/>
+        <source>Pin Window</source>
+        <translation>贴图</translation>
+    </message>
+</context>
+<context>
     <name>PixelPanel</name>
     <message>
         <location filename="../widget/pixelpanel.cpp" line="100"/>
@@ -490,27 +498,32 @@
     </message>
     <message>
         <location filename="../widget/toolwidget.cpp" line="34"/>
+        <source>pin tool</source>
+        <translation>贴图</translation>
+    </message>
+    <message>
+        <location filename="../widget/toolwidget.cpp" line="35"/>
         <source>save to file</source>
         <translation>保存到文件</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="35"/>
+        <location filename="../widget/toolwidget.cpp" line="36"/>
         <source>copy to clipboard</source>
         <translation>复制到剪贴板</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="120"/>
-        <location filename="../widget/toolwidget.cpp" line="133"/>
+        <location filename="../widget/toolwidget.cpp" line="122"/>
+        <location filename="../widget/toolwidget.cpp" line="135"/>
         <source>QtScreenShot notification</source>
         <translation>QtScreenShot 通知</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="120"/>
+        <location filename="../widget/toolwidget.cpp" line="122"/>
         <source>The image has been saved to a file</source>
         <translation>图像已保存到文件</translation>
     </message>
     <message>
-        <location filename="../widget/toolwidget.cpp" line="133"/>
+        <location filename="../widget/toolwidget.cpp" line="135"/>
         <source>The image has been saved to the clipboard</source>
         <translation>图像已保存到剪切板</translation>
     </message>
