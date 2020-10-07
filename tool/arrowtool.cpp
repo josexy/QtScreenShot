@@ -20,7 +20,6 @@ void ArrowTool::initUI()
 
     btnArrow1=new BaseButton(qCore->svgImagePath()+"tri-arrow.svg",tr("tri arrow"),this);
 
-    btnArrow1->setChecked(true);
     hBoxlayout->addWidget(btnArrow1);
     setLayout(hBoxlayout);
 
