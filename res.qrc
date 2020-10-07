@@ -31,6 +31,7 @@
         <file>res/images/dashline.svg</file>
         <file>res/images/rtriangle.svg</file>
         <file>res/images/brush.svg</file>
+        <file>res/images/pin.svg</file>
     </qresource>
     <qresource prefix="/ts">
         <file>res/translator/UI_Translation_zh_CN.qm</file>
