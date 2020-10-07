@@ -46,6 +46,7 @@ SOURCES += core/core.cpp\
     widget/pixelpanel.cpp\
     widget/pixelwidget.cpp\
     widget/separator.cpp\
+    widget/pinwidget.cpp \
     tool/shapetool.cpp\
     tool/texttool.cpp\
     tool/pentool.cpp\
@@ -85,6 +86,7 @@ HEADERS += core/core.h\
     widget/pixelpanel.h\
     widget/pixelwidget.h\
     widget/separator.h\
+    widget/pinwidget.h \
     tool/pentool.h\
     tool/shapetool.h\
     tool/texttool.h\
