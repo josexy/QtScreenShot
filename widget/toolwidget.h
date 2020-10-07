@@ -8,6 +8,7 @@ using std::stack;
 
 class CaptureWindow;
 class BaseButton;
+class PinWidget;
 class ToolWidget : public BaseTool
 {
     Q_OBJECT
@@ -31,8 +32,10 @@ protected slots:
     void on_btnRedo_clicked();
     void on_btnBlur_clicked();
     void on_btnBrush_clicked();
+    void on_btnPin_clicked();
 private:
     CaptureWindow * captureW;
+    PinWidget * pinWidget;
     stack<shape_object> restore;
 
     BaseButton *btnShape;
@@ -44,6 +47,7 @@ private:
     BaseButton *btnBrush;
     BaseButton *btnUndo;
     BaseButton *btnRedo;
+    BaseButton *btnPin;
     BaseButton *btnCancel;
     BaseButton *btnSave;
     BaseButton *btnCopy;

@@ -1,7 +1,7 @@
-#include "toolwidget.h"
+#include "widget/toolwidget.h"
 #include "capturewindow.h"
 #include "basebutton.h"
-
+#include "pinwidget.h"
 #include <QHBoxLayout>
 #include <QPainter>
 
@@ -9,7 +9,7 @@ ToolWidget::ToolWidget(QWidget *parent) :
     BaseTool(parent),captureW((CaptureWindow*)parent)
 {
     setAttribute(Qt::WA_TranslucentBackground);
-    setFixedSize(500,50);
+    setFixedSize(550,50);
 
     initUI();
 }
@@ -31,6 +31,7 @@ void ToolWidget::initUI()
     btnUndo=new BaseButton(qCore->svgImagePath()+QStringLiteral("undo.svg"),tr("undo"),this,false);
     btnRedo=new BaseButton(qCore->svgImagePath()+QStringLiteral("redo.svg"),tr("redo"),this,false);
     btnCancel=new BaseButton(qCore->svgImagePath()+QStringLiteral("cancel.svg"),tr("close"),this,false);
+    btnPin=new BaseButton(qCore->svgImagePath()+QStringLiteral("pin.svg"),tr("pin tool"),this,false);
     btnSave=new BaseButton(qCore->svgImagePath()+QStringLiteral("save.svg"),tr("save to file"),this,false);
     btnCopy=new BaseButton(qCore->svgImagePath()+QStringLiteral("copy.svg"),tr("copy to clipboard"),this,false);
 
@@ -43,6 +44,7 @@ void ToolWidget::initUI()
     hboxL->addWidget(btnErase);
     hboxL->addWidget(btnUndo);
     hboxL->addWidget(btnRedo);
+    hboxL->addWidget(btnPin);
     hboxL->addWidget(btnCancel);
     hboxL->addWidget(btnSave);
     hboxL->addWidget(btnCopy);
@@ -60,7 +62,7 @@ void ToolWidget::initUI()
     connect(btnCopy,SIGNAL(clicked(bool)),this,SLOT(on_btnCopyClipboard_clicked()));
     connect(btnBlur,SIGNAL(clicked(bool)),this,SLOT(on_btnBlur_clicked()));
     connect(btnBrush,SIGNAL(clicked(bool)),this,SLOT(on_btnBrush_clicked()));
-
+    connect(btnPin,SIGNAL(clicked(bool)),this,SLOT(on_btnPin_clicked()));
 }
 
 ToolWidget::~ToolWidget() {}
@@ -131,6 +133,16 @@ void ToolWidget::on_btnCopyClipboard_clicked()
     captureW->grabSubRegion();
     qCore->PixMap2ClipBoard(qCore->getPixMap());
     qCore->getSysTray()->showMessage(tr("QtScreenShot notification"),tr("The image has been saved to the clipboard"));
+    on_btnCancel_clicked();
+}
+
+void ToolWidget::on_btnPin_clicked()
+{
+    auto r=captureW->grabSubRegion();
+    pinWidget=new PinWidget(qCore->getPixMap());
+    pinWidget->setGeometry(r);
+    pinWidget->setAttribute(Qt::WA_DeleteOnClose);
+    pinWidget->show();
     on_btnCancel_clicked();
 }
 
