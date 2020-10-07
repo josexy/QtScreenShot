@@ -62,7 +62,7 @@ public:
     void moveWidgetTool(QWidget *);
 
     void resetPaintInfo();
-    void grabSubRegion();
+    QRect grabSubRegion();
 
     void init();
     void initShortcuts();
@@ -104,8 +104,6 @@ private:
     TextTool *textTool;
     EraseTool *eraseTool;
     ArrowTool *arrowTool;
-
-    QGraphicsBlurEffect * blurEffect;
 
     PaintEventNotify paintEventNotify;
     ShapeType shapeType;

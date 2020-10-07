@@ -26,8 +26,7 @@ CaptureWindow::CaptureWindow(QWidget *parent) :
     fill(false),
     save(false),
     resizing(true),
-    egeneral(true),
-    blurEffect(nullptr)
+    egeneral(true)
 {
     initShortcuts();
     init();
@@ -551,7 +550,8 @@ void CaptureWindow::mouseMoveEvent(QMouseEvent *event)
                     if(shapeType==ShapeType::Brush||shapeType==ShapeType::Rectangle||shapeType==ShapeType::Circle||shapeType==ShapeType::Blur){
                         paintRegion.setWidth(event->x()-paintPoint.x());
                         paintRegion.setHeight(event->y()-paintPoint.y());
-                    }else if(shapeType==ShapeType::DashLine || shapeType==ShapeType::Line || shapeType==ShapeType::TriArrow){
+                    }else if(shapeType==ShapeType::DashLine || shapeType==ShapeType::Line
+                             || shapeType==ShapeType::TriArrow){
                         paintPoint2=event->pos();
                     }else if(shapeType==ShapeType::Curve){
                         freeLine.push_back(event->pos());
@@ -764,7 +764,7 @@ void CaptureWindow::mousePressEvent(QMouseEvent *event)
     }
 }
 
-void CaptureWindow::grabSubRegion()
+QRect CaptureWindow::grabSubRegion()
 {
     save=true;
     update();
@@ -777,6 +777,7 @@ void CaptureWindow::grabSubRegion()
 
     qCore->setPixMap(grab(r));
     save=false;
+    return r;
 }
 
 void CaptureWindow::mouseReleaseEvent(QMouseEvent *event)
@@ -813,8 +814,12 @@ void CaptureWindow::mouseReleaseEvent(QMouseEvent *event)
 
             if(!checkValidPoint())
                 goto invalid;
-            if(shapeType!=ShapeType::Point && !checkValidPaintRegion())
+
+            if(shapeType!=ShapeType::Point &&shapeType!=ShapeType::Line
+               && shapeType!=ShapeType::TriArrow && shapeType!=ShapeType::DashLine
+               &&shapeType!=ShapeType::Point && !checkValidPaintRegion()){
                 goto invalid;
+            }
 
             if(shapeType==ShapeType::Brush||shapeType==ShapeType::Blur||shapeType==ShapeType::Rectangle||shapeType==ShapeType::Circle){
                 // check is a rectangle
@@ -828,7 +833,8 @@ void CaptureWindow::mouseReleaseEvent(QMouseEvent *event)
                 }
                 so.rs.push_back(paintRegion);
                 sos.push_back(so);
-            }else if(shapeType==ShapeType::DashLine || shapeType==ShapeType::Line || shapeType==ShapeType::TriArrow){
+            }else if(shapeType==ShapeType::DashLine || shapeType==ShapeType::Line
+                     || shapeType==ShapeType::TriArrow){
                 if(checkValidPoint() && paintPoint2.x()!=-1 && paintPoint2.y()!=-1){
                     so.st=shapeType;
                     so.ps.push_back(paintPoint);
