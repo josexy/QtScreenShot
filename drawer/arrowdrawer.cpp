@@ -1,7 +1,7 @@
 #include "arrowdrawer.h"
 #include "core/core_system.h"
 #include <QPainterPath>
-#include <cmath>
+#include <QtMath>
 
 ArrowDrawer::ArrowDrawer(const QPoint &from, const QPoint &to,
                          int lineSize,QColor lineColor,
