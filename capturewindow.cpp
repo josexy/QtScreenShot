@@ -324,7 +324,8 @@ void CaptureWindow::paintEvent(QPaintEvent *event)
                         PenDrawer(sos[i],pt,this);
                         break;
                     }
-                    case ShapeType::TriArrow:{
+                    case ShapeType::TriArrow:
+                    case ShapeType::LineArrow:{
                         ArrowDrawer(sos[i].ps.front(),sos[i].ps.back(),5*sos[i].pensize,sos[i].color,p,sos[i].st);
                         ArrowDrawer(sos[i].ps.front(),sos[i].ps.back(),5*sos[i].pensize,sos[i].color,pt,sos[i].st);
                         break;
@@ -391,7 +392,8 @@ void CaptureWindow::paintEvent(QPaintEvent *event)
                     }
                     break;
                 }
-                case ShapeType::TriArrow:{
+                case ShapeType::TriArrow:
+                case ShapeType::LineArrow:{
                     ArrowDrawer(paintPoint,paintPoint2,5*qCore->getPenSize(),qCore->getPenColor(),p,shapeType);
                     break;
                 }
@@ -488,7 +490,7 @@ void CaptureWindow::mouseMoveEvent(QMouseEvent *event)
                 }else{
                     switch(shapeType){
                     case ShapeType::Text:setCursor(Qt::IBeamCursor);break;
-                    case ShapeType::Line: case ShapeType::Point:
+                    case ShapeType::Line: case ShapeType::Point:case ShapeType::LineArrow:
                     case ShapeType::Curve: case ShapeType::Rectangle:case ShapeType::Brush:
                     case ShapeType::TriArrow: case ShapeType::DashLine:case ShapeType::RTriangle:
                     case ShapeType::Blur: case ShapeType::Circle:case ShapeType::Triangle: setCursor(Qt::CrossCursor);break;
@@ -551,7 +553,7 @@ void CaptureWindow::mouseMoveEvent(QMouseEvent *event)
                         paintRegion.setWidth(event->x()-paintPoint.x());
                         paintRegion.setHeight(event->y()-paintPoint.y());
                     }else if(shapeType==ShapeType::DashLine || shapeType==ShapeType::Line
-                             || shapeType==ShapeType::TriArrow){
+                             || shapeType==ShapeType::LineArrow || shapeType==ShapeType::TriArrow){
                         paintPoint2=event->pos();
                     }else if(shapeType==ShapeType::Curve){
                         freeLine.push_back(event->pos());
@@ -712,6 +714,7 @@ void CaptureWindow::mousePressEvent(QMouseEvent *event)
                 case ShapeType::Curve:
                 case ShapeType::Point:
                 case ShapeType::TriArrow:
+                case ShapeType::LineArrow:
                 case ShapeType::Blur:
                 case ShapeType::Brush:setCursor(Qt::CrossCursor);break;
 
@@ -815,9 +818,9 @@ void CaptureWindow::mouseReleaseEvent(QMouseEvent *event)
             if(!checkValidPoint())
                 goto invalid;
 
-            if(shapeType!=ShapeType::Point &&shapeType!=ShapeType::Line
+            if(shapeType!=ShapeType::Point && shapeType!=ShapeType::Line
                && shapeType!=ShapeType::TriArrow && shapeType!=ShapeType::DashLine
-               &&shapeType!=ShapeType::Point && !checkValidPaintRegion()){
+               && shapeType!=ShapeType::Point && shapeType!=ShapeType::LineArrow && !checkValidPaintRegion()){
                 goto invalid;
             }
 
@@ -834,7 +837,7 @@ void CaptureWindow::mouseReleaseEvent(QMouseEvent *event)
                 so.rs.push_back(paintRegion);
                 sos.push_back(so);
             }else if(shapeType==ShapeType::DashLine || shapeType==ShapeType::Line
-                     || shapeType==ShapeType::TriArrow){
+                     || shapeType==ShapeType::TriArrow || shapeType==ShapeType::LineArrow){
                 if(checkValidPoint() && paintPoint2.x()!=-1 && paintPoint2.y()!=-1){
                     so.st=shapeType;
                     so.ps.push_back(paintPoint);
