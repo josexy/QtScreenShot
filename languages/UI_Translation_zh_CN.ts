@@ -8,7 +8,6 @@
         <translation>箭头1</translation>
     </message>
     <message>
-        <location filename="../tool/arrowtool.cpp" line="21"/>
         <source>tri arrow</source>
         <translation>箭头1</translation>
     </message>
@@ -19,6 +18,16 @@
     <message>
         <source>sharp arrow</source>
         <translation>箭头3</translation>
+    </message>
+    <message>
+        <location filename="../tool/arrowtool.cpp" line="21"/>
+        <source>Triangle Arrow</source>
+        <translation>箭头1</translation>
+    </message>
+    <message>
+        <location filename="../tool/arrowtool.cpp" line="22"/>
+        <source>Line Arrow</source>
+        <translation>箭头2</translation>
     </message>
 </context>
 <context>
