@@ -6,6 +6,7 @@
 class CaptureWindow;
 class BaseButton;
 
+
 class ArrowTool : public BaseTool
 {
     Q_OBJECT

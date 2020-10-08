@@ -10,7 +10,7 @@ ArrowTool::ArrowTool(QWidget *parent)
     setFixedSize(100,50);
     initUI();
 }
-
+  
 void ArrowTool::initUI()
 {
     QHBoxLayout *hBoxlayout=new QHBoxLayout(this);
