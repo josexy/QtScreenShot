@@ -51,6 +51,7 @@ enum class ShapeType{
     Erase,
     // arrow
     TriArrow,
+    LineArrow,
     // Blur
     Blur,
     Brush
