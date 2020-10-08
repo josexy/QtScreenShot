@@ -16,9 +16,11 @@ public:
     void singlePressed();
 protected slots:
     void on_triArrow1_clicked();
+    void on_lineArrow2_clicked();
 private:
     CaptureWindow *__w;
     BaseButton * btnArrow1;
+    BaseButton * btnArrow2;
 };
 
 #endif
