@@ -31,7 +31,7 @@ void PinWidget::enterEvent(QEvent *)
 void PinWidget::leaveEvent(QEvent *)
 {
     setCursor(Qt::ArrowCursor);
-    borderColor=qCore->getPressedColor();
+    borderColor=qCore->getCheckedColor();
     update();
 }
 void PinWidget::mousePressEvent(QMouseEvent *e)
