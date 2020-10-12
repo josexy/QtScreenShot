@@ -102,7 +102,6 @@ private:
     bool cutTopWindow=false;
 #endif
 
-
     ToolWidget *toolWidget;
     ShapeTool *shapeTool;
     InputTextEdit *inputTextEdit;
