@@ -17,6 +17,26 @@
 #include <QPainter>
 #include <QDebug>
 
+#ifdef Q_OS_WIN
+#include <Windows.h>
+
+struct Rect{
+    int top,left,bottom,right;
+    Rect(int t,int l,int b,int r): top(t),left(l),bottom(b),right(r){}
+    Rect(const RECT &r){ top=r.top,left=r.left,bottom=r.bottom,right=r.right; }
+    Rect(const QRect &r){ top=r.top(),left=r.left(),bottom=r.bottom(),right=r.right(); }
+
+    int width() {return right-left;}
+    int height() {return bottom-top;}
+
+    operator QRect(){return QRect(left,top,width(),height());}
+};
+
+QVector<Rect>ss;
+
+#endif
+
+
 CaptureWindow::CaptureWindow(QWidget *parent) :
     QWidget(parent),
     d(0),
@@ -28,9 +48,60 @@ CaptureWindow::CaptureWindow(QWidget *parent) :
     resizing(true),
     egeneral(true)
 {
+#ifdef Q_OS_WIN
+    topWindowRects();
+#endif
+
     initShortcuts();
     init();
 }
+
+#ifdef Q_OS_WIN
+
+#if 0
+BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM)
+{
+    RECT r;
+    int len=GetWindowTextLengthA(hwnd);
+    if(!IsWindowVisible(hwnd))return TRUE;
+
+    if(len<=0)return TRUE;
+    GetWindowRect(hwnd,&r);
+    QRect rect(r.left,r.top,r.right-r.left,r.bottom-r.top);
+    if(rect.left() >=0 && rect.top() >=0&&  rect.height() && rect.width()){
+        int offset=qCore->getBorderWeight()*2;
+        ss.push_back(Rect(r.top,r.left+offset,r.bottom-offset,r.right-offset));
+    }
+
+    return TRUE;
+}
+#endif
+void CaptureWindow::topWindowRects()
+{
+    ss.clear();
+    //EnumWindows(EnumWindowsProc,0);
+#if 1
+    HWND hwnd=::GetWindow(::GetDesktopWindow(),GW_CHILD);
+    RECT r;
+    GetWindowRect(hwnd,&r);
+    ss.push_back(r);
+
+    while(hwnd){
+        hwnd=::GetWindow(hwnd,GW_HWNDNEXT);
+        int len=GetWindowTextLengthA(hwnd);
+        if(len<=0)continue;
+        if(!IsWindowVisible(hwnd))continue;
+        GetWindowRect(hwnd,&r);
+        QRect rect(r.left,r.top,r.right-r.left,r.bottom-r.top);
+
+        if(rect.left() >=0 && rect.top() >=0&&  rect.height() && rect.width()){
+            int offset=qCore->getBorderWeight()*2;
+            ss.push_back(Rect(r.top,r.left+offset,r.bottom-offset,r.right-offset));
+        }
+    }
+#endif
+}
+#endif
 
 CaptureWindow::~CaptureWindow() {}
 
@@ -288,7 +359,7 @@ void CaptureWindow::paintEvent(QPaintEvent *event)
     p.setRenderHints(QPainter::Antialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing);
     // background mask
     p.fillRect(rect(),qCore->maskColor());
-    if(pressed||completed){
+    if(pressed||completed||cutTopWindow){
         p.eraseRect(region);
 
         // draw shape_object
@@ -586,7 +657,32 @@ void CaptureWindow::mouseMoveEvent(QMouseEvent *event)
         }
         return;
     }
-    if(!pressed) return;
+    if(!pressed) {
+#ifdef Q_OS_WIN
+#if 1
+        for(auto x=ss.begin();x!=ss.end();x++){
+            auto r=QRect(*x);
+            if(r.contains(event->pos())){
+                region=r;
+                break;
+            }
+        }
+#endif
+#if 0
+        POINT pt;
+        ::GetCursorPos(&pt);
+        HWND hwnd =::ChildWindowFromPointEx(::GetDesktopWindow(),pt,CWP_SKIPINVISIBLE);
+
+        qDebug()<<hwnd;
+        RECT r;
+        ::GetWindowRect(hwnd, &r);
+        region=QRect(r.left,r.top, r.right - r.left, r.bottom - r.top);
+#endif
+        cutTopWindow=true;
+        update();
+#endif
+        return;
+    }
 
     setCursor(Qt::CrossCursor);
 
@@ -681,7 +777,9 @@ void CaptureWindow::movePixelPanel(const QPoint& pos)
 void CaptureWindow::mousePressEvent(QMouseEvent *event)
 {
     if(event->button()==Qt::LeftButton){
-
+#ifdef Q_OS_WIN
+        cutTopWindow=false;
+#endif
         if(!completed){
             setCursor(Qt::PointingHandCursor);
             point=event->pos();

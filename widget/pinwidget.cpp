@@ -8,7 +8,8 @@ PinWidget::PinWidget(const QPixmap &pixmap, QWidget *parent) : QWidget(parent),_
 {
     setWindowTitle(tr("Pin Window"));
     setWindowIcon(QIcon(":/svg/res/images/logo.svg"));
-    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint|Qt::WindowStaysOnTopHint);
+
     new QShortcut(QKeySequence(Qt::Key_Escape),this,SLOT(closePinWidget()));
     borderColor=qCore->getHoverColor();
     QSize size=qCore->getScreenSize();

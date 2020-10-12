@@ -66,7 +66,9 @@ public:
 
     void init();
     void initShortcuts();
-
+#ifdef Q_OS_WIN
+    void topWindowRects();
+#endif
 protected slots:
     void cancel();
     void copyColorValue();
@@ -95,6 +97,11 @@ private:
     bool save;
     bool resizing;
     bool egeneral;
+
+#ifdef Q_OS_WIN
+    bool cutTopWindow=false;
+#endif
+
 
     ToolWidget *toolWidget;
     ShapeTool *shapeTool;
