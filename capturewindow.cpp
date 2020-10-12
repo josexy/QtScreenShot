@@ -359,7 +359,11 @@ void CaptureWindow::paintEvent(QPaintEvent *event)
     p.setRenderHints(QPainter::Antialiasing|QPainter::SmoothPixmapTransform|QPainter::TextAntialiasing);
     // background mask
     p.fillRect(rect(),qCore->maskColor());
+#ifdef Q_OS_WIN
     if(pressed||completed||cutTopWindow){
+#else
+    if(pressed||completed){
+#endif
         p.eraseRect(region);
 
         // draw shape_object
