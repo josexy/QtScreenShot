@@ -368,12 +368,22 @@
         <translation>退出</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="364"/>
+        <location filename="../settingswindow.cpp" line="343"/>
+        <source>Error</source>
+        <translation>错误</translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.cpp" line="343"/>
+        <source>SMMS Authorization not empty!</source>
+        <translation>SMMS Authorization 不能为空!</translation>
+    </message>
+    <message>
+        <location filename="../settingswindow.cpp" line="370"/>
         <source>Information</source>
         <translation>消息</translation>
     </message>
     <message>
-        <location filename="../settingswindow.cpp" line="364"/>
+        <location filename="../settingswindow.cpp" line="370"/>
         <source>Settings saved successfully!</source>
         <translation>设置保存成功!</translation>
     </message>
