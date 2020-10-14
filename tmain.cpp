@@ -4,6 +4,7 @@
 #include "settingswindow.h"
 #include "QHotkey/QHotkey/QHotkey"
 #include "core/core_fs_check.h"
+#include "helper/imageuploader.h"
 
 // global variable
 bool kCapture_window_load;
@@ -84,7 +85,6 @@ void TMain::init()
 
 void TMain::loadConfiguration()
 {
-    // basic settings
     QString saveDirectory=QString::fromStdString(__core_settings.read("settings","save_directory").data1);
     QString fontFamliy=QString::fromStdString(__core_settings.read("settings","font_family").data1);
     bool language=__core_settings.read("settings","language").data3;
@@ -97,6 +97,22 @@ void TMain::loadConfiguration()
     QString border_color=QString::fromStdString(__core_settings.read("settings","border_color").data1);
     QString ui_color=QString::fromStdString(__core_settings.read("settings","ui_color").data1);
     QString dot_color=QString::fromStdString(__core_settings.read("settings","dot_color").data1);
+
+    QString smms_authorization=QString::fromStdString(__core_settings.read("settings","smms_authorization").data1);
+    bool enable_upload=__core_settings.read("settings","enable_upload").data3;
+    bool enable_proxy=__core_settings.read("settings","enable_proxy").data3;
+
+    // Proxy ip
+    QString proxies_ip=QString::fromStdString(__core_settings.read("proxies","ip").data1);
+    int proxies_port=__core_settings.read("proxies","port").data2;
+    bool proxies_type=__core_settings.read("proxies","type").data1=="socks5";
+
+    qCore->setSMMSAuthorization(smms_authorization);
+    qCore->setEnableUpload(enable_upload);
+    qCore->setEnableProxy(enable_proxy);
+    qCore->setProxyIP(proxies_ip);
+    qCore->setProxyType(proxies_type);
+    qCore->setProxyPort(proxies_port);
 
     qCore->setDotColor(dot_color);
     qCore->setDotSize(dot_size);
@@ -194,13 +210,17 @@ void TMain::registerHotkey()
 
 void TMain::captureDesktop()
 {
-    qCore->grabScreen2File();
+    QString filename=qCore->grabScreen2File();
     systemTray->showMessage(tr("QtScreenShot notification"),tr("The image has been saved to a file"));
     __LOG__("Capture all desktop",1);
+    if(qCore->getEnableUpload()){
+        UploaderThread *th=new UploaderThread(filename);
+        th->start();
+        th->wait(10);
+    }
 }
 void TMain::captureDesktopWithCopy()
 {
-
     qCore->grabScreen2Clipboard();
     systemTray->showMessage(tr("QtScreenShot notification"),tr("The image has been saved to the clipboard"));
     __LOG__("Capture all desktop and copy to clipboard",1);
