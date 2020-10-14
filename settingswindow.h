@@ -43,6 +43,7 @@ protected slots:
     void on_combFontFamily_currentIndexChanged(int);
     void on_btnSaveConfig_clicked();
     void on_btnGetSaveDir_clicked();
+
 private:
     Ui::SettingsWindow *ui;
     core __core;
@@ -58,6 +59,7 @@ private:
     ColorPicker *colorMainUI;
     QTableWidget *twShortcut;
     bool recording_keymap=false,change_hotkey=false;
+
 };
 
 #endif

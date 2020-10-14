@@ -1,7 +1,7 @@
 #include "ui_settingswindow.h"
 #include "settingswindow.h"
-#include "tmain.h"
 #include "widget/colorpicker.h"
+#include "tmain.h"
 
 #include <QMessageBox>
 #include <QFileDialog>
@@ -9,6 +9,7 @@
 #include <QTableWidget>
 #include <QHeaderView>
 #include <QSettings>
+
 
 SettingsWindow::SettingsWindow(QWidget *parent) :
     QWidget(parent),
@@ -165,6 +166,7 @@ void SettingsWindow::setTMain(TMain *tmian)
 
 void SettingsWindow::qCorerestore()
 {
+    qCore->setSMMSAuthorization(ui->txtAuth->text());
     qCore->setFilePrefixFormat(ui->combFileFormat->currentText());
     qCore->setSaveFileDir(ui->combSaveDir->currentText());
     qCore->setLanguage(ui->combLanguage->currentIndex());
@@ -175,6 +177,11 @@ void SettingsWindow::qCorerestore()
     qCore->setHoverColor(colorMainUI->getColor());
     qCore->setDotSize(ui->txtDotSize->text().toInt());
     qCore->setDotColor(colorDot->getColor());
+    qCore->setProxyIP(ui->txtProxyIP->text());
+    qCore->setProxyPort(ui->txtProxyPort->text().toUInt());
+    qCore->setProxyType(ui->combType->currentIndex());
+    qCore->setEnableProxy(ui->cbProxy->isChecked());
+    qCore->setEnableUpload(ui->cbUpload->isChecked());
 }
 
 bool SettingsWindow::eventFilter(QObject * obj, QEvent * event)
@@ -244,6 +251,16 @@ void SettingsWindow::saveConfigurationFile()
         __core_settings.write("settings","ui_color",Data(colorMainUI->getColor().name().toStdString()));
         __core_settings.write("settings","dot_color",Data(colorDot->getColor().name().toStdString()));
 
+        __core_settings.write("settings","smms_authorization",Data(ui->txtAuth->text().toStdString()));
+
+        __core_settings.write("settings","enable_upload",Data("",0.0,ui->cbUpload->isChecked()));
+        __core_settings.write("settings","enable_proxy",Data("",0.0,ui->cbProxy->isChecked()));
+        // proxy
+        __core_settings.write("proxies","type",Data(ui->combType->currentIndex()==0?"http":"socks5"));
+        __core_settings.write("proxies","ip",Data(ui->txtProxyIP->text().toStdString()));
+        __core_settings.write("proxies","port",Data("",ui->txtProxyPort->text().toInt()));
+
+
         if(keymap[0].size() && keymap[1].size() && keymap[2].size() && keymap[3].size() && keymap[4].size()){
             __core_settings.write("keymap","cap_desktop",Data(keymap[0].toStdString()));
             __core_settings.write("keymap","cap_desktop_copy",Data(keymap[1].toStdString()));
@@ -280,6 +297,15 @@ void SettingsWindow::updateWidgetValue()
     colorBorder->setColor(qCore->getBorderColor());
     colorMainUI->setColor(qCore->getHoverColor());
 
+    ui->cbUpload->setChecked(qCore->getEnableUpload());
+    ui->cbProxy->setChecked(qCore->getEnableProxy());
+
+    ui->txtAuth->setText(qCore->getSMMSAuthorization());
+    // proxy
+    ui->txtProxyIP->setText(qCore->getProxyIP());
+    ui->txtProxyPort->setText(QString::number(qCore->getProxyPort()));
+    ui->combType->setCurrentIndex(qCore->getProxyType());
+
     // update keymap
     keymap=qCore->getKeymap();
     ui->btnDesktop->setText(keymap[0]);
@@ -312,6 +338,12 @@ void SettingsWindow::on_combFontFamily_currentIndexChanged(int index)
 
 void SettingsWindow::on_btnSaveConfig_clicked()
 {
+
+    if( ui->cbUpload->isChecked() && ui->txtAuth->text().trimmed().isEmpty()){
+        QMessageBox::critical(this,tr("Error"),tr("SMMS Authorization not empty!"));
+        return;
+    }
+
     recording_keymap=false;
     saveConfigurationFile();
     qCore->setKeymap(keymap);
@@ -344,3 +376,4 @@ void SettingsWindow::on_btnGetSaveDir_clicked()
     QString Dir=QFileDialog::getExistingDirectory(this);
     if(Dir.size()) ui->combSaveDir->setCurrentText(Dir);
 }
+
