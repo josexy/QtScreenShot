@@ -3,7 +3,7 @@
 #include "core_system.h"
 #include "core_fs_check.h"
 
-core::core():__penSize(2),__borderWeight(4),__eraseSize(10),__dotSize(12)
+core::core():__penSize(2),__borderWeight(4),__eraseSize(10),__dotSize(12),__ProxyType(false)
 {
     __fileFormat="yyyy_MM_dd_hh_mm_ss";
     __saveDir=QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).first();
@@ -110,6 +110,66 @@ const QPixmap &core::logoPixmap() const
     return __logoPixmap;
 }
 
+void core::setEnableUpload(bool is)
+{
+    __enableUpload=is;
+}
+
+bool core::getEnableUpload()
+{
+    return __enableUpload;
+}
+
+void core::setEnableProxy(bool is)
+{
+    __enableProxy=is;
+}
+
+bool core::getEnableProxy()
+{
+    return __enableProxy;
+}
+
+void core::setProxyType(bool is)
+{
+    __ProxyType=is;
+}
+
+bool core::getProxyType()
+{
+    return __ProxyType;
+}
+
+void core::setProxyIP(const QString &ip)
+{
+    __IP=ip;
+}
+
+const QString &core::getProxyIP()
+{
+    return __IP;
+}
+
+void core::setProxyPort(int port)
+{
+    __Port=port;
+}
+
+int core::getProxyPort()
+{
+    return __Port;
+}
+
+void core::setSMMSAuthorization(const QString &auth)
+{
+    __Authorization=auth;
+}
+
+const QString &core::getSMMSAuthorization()
+{
+    return __Authorization;
+}
+
 void core::grabScreen(int x, int y, int w, int h)
 {
     setPixMap(getPrimaryScreen()->grabWindow(0,x,y,w,h));
@@ -120,10 +180,10 @@ void core::grabScreen(const QRect &region)
     grabScreen(region.left(),region.top(),region.width(),region.height());
 }
 
-void core::grabScreen2File(int x, int y, int w, int h)
+QString core::grabScreen2File(int x, int y, int w, int h)
 {
     grabScreen(x,y,w,h);
-    PixMap2ImageFile(__pixmap);
+    return PixMap2ImageFile(__pixmap);
 }
 
 void core::grabScreen2File(const QRect &region)
@@ -162,7 +222,7 @@ QPixmap &core::getbgPixmap()
     return __bgPixmap;
 }
 
-void core::PixMap2ImageFile(const QPixmap& pixmap)
+QString core::PixMap2ImageFile(const QPixmap& pixmap)
 {
     QString dts=QDateTime::currentDateTime().toString(__fileFormat);
     QString filename=__saveDir+"/"+prefix()+dts+"."+(__imageType.toLower());
@@ -176,6 +236,8 @@ void core::PixMap2ImageFile(const QPixmap& pixmap)
     else if(__imageQuality>=100) __imageQuality=100;
     iw.setQuality(__imageQuality);
     iw.write(pixmap.toImage());
+
+    return filename;
 }
 
 void core::PixMap2ClipBoard(const QPixmap& pixmap)

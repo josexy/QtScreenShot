@@ -84,7 +84,7 @@ public:
     // grab screen image
     void grabScreen(int=0,int=0,int=-1,int=-1);
     void grabScreen(const QRect&);
-    void grabScreen2File(int=0,int=0,int=-1,int=-1);
+    QString grabScreen2File(int=0,int=0,int=-1,int=-1);
     void grabScreen2File(const QRect&);
     void grabScreen2Clipboard(int=0,int=0,int=-1,int=-1);
     void grabScreen2Clipboard(const QRect&);
@@ -97,7 +97,7 @@ public:
     void setPixMap(const QPixmap&);
 
     // pixmap convert to image file or copy to clipboard
-    void PixMap2ImageFile(const QPixmap&);
+    QString PixMap2ImageFile(const QPixmap&);
     void PixMap2ClipBoard(const QPixmap&);
 
     // set save image file format name
@@ -204,6 +204,29 @@ public:
     QColor maskColor() const {return QColor(0,0,0,170);}
     const QPixmap &logoPixmap() const;
 
+    // enable upload image
+    void setEnableUpload(bool);
+    bool getEnableUpload();
+
+    // enable proxy
+    void setEnableProxy(bool);
+    bool getEnableProxy();
+
+    // false: HTTP/ true: Socks5
+    void setProxyType(bool);
+    bool getProxyType();
+
+    // Proxy IP
+    void setProxyIP(const QString &);
+    const QString &getProxyIP();
+
+    // Proxy Port
+    void setProxyPort(int);
+    int getProxyPort();
+
+    void setSMMSAuthorization(const QString &);
+    const QString &getSMMSAuthorization();
+
     static QStringList getFontFamilies();
     static QFont getAppFont();
     static QScreen *getPrimaryScreen();
@@ -216,6 +239,8 @@ private:
     QPixmap __pixmap,__bgPixmap,__cutPixmap,__logoPixmap;
     QStringList __keymap;
     QString __fileFormat,__saveDir,__imageType,__fontFamily;
+    QString __Authorization,__IP;
+    int __Port;
 
     QColor __borderColor,__penColor,__bgColor,__dotColor;
     QColor __widgetBgColor,__normalColor,__hoverColor;
@@ -224,7 +249,8 @@ private:
     ShapeType __shapeType;
 
     int __imageQuality,__penSize,__borderWeight,__eraseSize,__dotSize;
-    bool __startOnBoot,__shadowEffect,__language;
+    bool __startOnBoot,__shadowEffect,__language,__ProxyType,__enableUpload,__enableProxy;
 };
+
 
 #endif
