@@ -1,4 +1,5 @@
 #include "widget/toolwidget.h"
+#include "helper/imageuploader.h"
 #include "capturewindow.h"
 #include "basebutton.h"
 #include "pinwidget.h"
@@ -118,9 +119,15 @@ void ToolWidget::on_btnSave2File_clicked()
         captureW->inputTextEdit->hide();
     }
     captureW->grabSubRegion();
-    qCore->PixMap2ImageFile(qCore->getPixMap());
-    qCore->getSysTray()->showMessage(tr("QtScreenShot notification"),tr("The image has been saved to a file"));
+    QString filename=qCore->PixMap2ImageFile(qCore->getPixMap());
     on_btnCancel_clicked();
+    qCore->getSysTray()->showMessage(tr("QtScreenShot notification"),tr("The image has been saved to a file"));
+
+    if(qCore->getEnableUpload()){
+        UploaderThread *th=new UploaderThread(filename);
+        th->start();
+        th->wait(10);
+    }
 }
 
 void ToolWidget::on_btnCopyClipboard_clicked()
