@@ -28,14 +28,14 @@ make
 cd bin
 ./QtScreenShot
 ```
-On Linux, you could run the `QtScreenShot` binary in terminal as well after running command `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./` under the `QtScreenShot` location. In addition, you must copy the libQHotkey.so\* to `QtScreenShot` binary path if you didn't install QHotkey library.
+On Linux, you could directly run the `QtScreenShot` binary file in terminal as well after running command `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./`. In addition, you must copy the libQHotkey.so\* to `QtScreenShot` directory if you don't install QHotkey library.
 
 On Windows, you should copy the QHotkey.dll to `QtScreenShot` path.That is easily.
 
 ### Need
-- Python with requests(Upload image)
+- Python with requests library(Upload image)
 - QHotkey library(Global hotkey)
-- Smms account(Store image)
+- Smms account(Image Server)
 - Proxy(Optional)
 
 ### Screenshot Example
