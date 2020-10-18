@@ -89,16 +89,24 @@ void ToolWidget::singlePressed()
     }
 }
 
+void ToolWidget::triggerInputTextEdit()
+{
+    captureW->inputTextEdit->move(0,0);
+    captureW->inputTextEdit->hide();
+    captureW->update();
+}
+
 void ToolWidget::on_btnBrush_clicked()
 {
     captureW->paintEventNotify=PaintEventNotify::Brush;
-    captureW->shapeType=ShapeType::Brush;
     captureW->painting=true;
     captureW->resizing=false;
+
+    triggerInputTextEdit();
+    captureW->shapeType=ShapeType::Brush;
     qCore->setSingleShape(captureW->shapeType);
 
     captureW->eraseTool->hide();
-    captureW->inputTextEdit->hide();
     captureW->penTool->hide();
     captureW->textTool->hide();
     captureW->arrowTool->hide();
@@ -164,13 +172,14 @@ void ToolWidget::on_btnCancel_clicked()
 void ToolWidget::on_btnBlur_clicked()
 {
     captureW->paintEventNotify=PaintEventNotify::Blur;
-    captureW->shapeType=ShapeType::Blur;
     captureW->painting=true;
     captureW->resizing=false;
+
+    triggerInputTextEdit();
+    captureW->shapeType=ShapeType::Blur;
     qCore->setSingleShape(captureW->shapeType);
 
     captureW->eraseTool->hide();
-    captureW->inputTextEdit->hide();
     captureW->penTool->hide();
     captureW->textTool->hide();
     captureW->arrowTool->hide();
@@ -190,13 +199,12 @@ void ToolWidget::on_btnShape_clicked()
     captureW->resizing=false;
 
     captureW->eraseTool->hide();
-    captureW->inputTextEdit->hide();
     captureW->penTool->hide();
     captureW->textTool->hide();
     captureW->arrowTool->hide();
     captureW->moveWidgetTool(captureW->shapeTool);
     captureW->shapeTool->show();
-
+    triggerInputTextEdit();
     captureW->shapeTool->singlePressed();
     captureW->arrowTool->singlePressed();
     captureW->penTool->singlePressed();
@@ -211,12 +219,12 @@ void ToolWidget::on_btnPen_clicked()
     captureW->resizing=false;
 
     captureW->eraseTool->hide();
-    captureW->inputTextEdit->hide();
     captureW->shapeTool->hide();
     captureW->textTool->hide();
     captureW->arrowTool->hide();
     captureW->moveWidgetTool(captureW->penTool);
     captureW->penTool->show();
+    triggerInputTextEdit();
 
     captureW->shapeTool->singlePressed();
     captureW->arrowTool->singlePressed();
@@ -239,6 +247,7 @@ void ToolWidget::on_btnText_clicked()
     captureW->arrowTool->hide();
     captureW->moveWidgetTool(captureW->textTool);
     captureW->textTool->show();
+    triggerInputTextEdit();
 
     captureW->shapeTool->singlePressed();
     captureW->arrowTool->singlePressed();
@@ -254,11 +263,11 @@ void ToolWidget::on_btnArrow_clicked()
     captureW->resizing=false;
 
     captureW->eraseTool->hide();
-    captureW->inputTextEdit->hide();
     captureW->shapeTool->hide();
     captureW->textTool->hide();
     captureW->penTool->hide();
     captureW->arrowTool->show();
+    triggerInputTextEdit();
 
     captureW->moveWidgetTool(captureW->arrowTool);
     captureW->shapeTool->singlePressed();
@@ -271,6 +280,8 @@ void ToolWidget::on_btnArrow_clicked()
 void ToolWidget::on_btnErase_clicked()
 {
     captureW->paintEventNotify=PaintEventNotify::Erase;
+
+    triggerInputTextEdit();
     captureW->shapeType=ShapeType::None;
     captureW->painting=true;
     captureW->resizing=false;
@@ -279,7 +290,6 @@ void ToolWidget::on_btnErase_clicked()
     captureW->textTool->hide();
     captureW->shapeTool->hide();
     captureW->penTool->hide();
-    captureW->inputTextEdit->hide();
     captureW->arrowTool->hide();
 
     captureW->moveWidgetTool(captureW->eraseTool);
@@ -292,7 +302,8 @@ void ToolWidget::on_btnErase_clicked()
 
 void ToolWidget::on_btnUndo_clicked()
 {
-    captureW->inputTextEdit->hide();
+    triggerInputTextEdit();
+
     captureW->textTool->hide();
     captureW->resetPaintInfo();
 
@@ -305,8 +316,9 @@ void ToolWidget::on_btnUndo_clicked()
 
 void ToolWidget::on_btnRedo_clicked()
 {
-    captureW->inputTextEdit->hide();
+    triggerInputTextEdit();
     captureW->textTool->hide();
+
     if(!restore.empty()){
         captureW->sos.push_back(restore.top());
         restore.pop();

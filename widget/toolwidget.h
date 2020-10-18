@@ -19,6 +19,7 @@ public:
     void singlePressed();
     void initUI();
 
+    void triggerInputTextEdit();
 protected slots:
     void on_btnSave2File_clicked();
     void on_btnCopyClipboard_clicked();
