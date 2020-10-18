@@ -108,20 +108,17 @@ RESOURCES += \
 
 TRANSLATIONS = languages/UI_Translation_zh_CN.ts
 
-
-unix{
-subproject.target = subproject 
-subproject.commands = cd $$PWD/QHotkey/ && \ 
-    qmake && \ 
-    make && \
-    cp $$PWD/QHotkey/QHotkey/libQHotkey.so* $$PWD/bin/ && \
-    cp $$PWD/smms_uploader.py $$PWD/bin/smms_uploader.py 
-QMAKE_EXTRA_TARGETS += subproject 
-PRE_TARGETDEPS += subproject 
-}
-
 TARGET = bin/QtScreenShot
 MOC_DIR += build
 OBJECTS_DIR += build
 RCC_DIR += build
+
+unix{
+subproject.target = subproject
+subproject.commands = cd $$PWD/QHotkey/ && \
+    qmake && \
+    make
+QMAKE_EXTRA_TARGETS += subproject
+PRE_TARGETDEPS += subproject
+}
 
