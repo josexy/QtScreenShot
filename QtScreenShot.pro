@@ -9,6 +9,11 @@ CONFIG    += c++17
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
+unix{
+CONFIG += x11
+QT += x11extras
+}
+
 # You can also make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -31,6 +36,7 @@ SOURCES += core/core.cpp\
     drawer/rectangleblurdrawer.cpp \
     drawer/shapedrawer.cpp \
     drawer/textdrawer.cpp \
+    helper/activewindow.cpp \
     helper/imageuploader.cpp \
     tmain.cpp \
     tool/arrowtool.cpp \
@@ -72,6 +78,7 @@ HEADERS += core/core.h\
     drawer/rectangleblurdrawer.h \
     drawer/shapedrawer.h \
     drawer/textdrawer.h \
+    helper/activewindow.h \
     helper/imageuploader.h \
     tmain.h \
     tool/arrowtool.h \
