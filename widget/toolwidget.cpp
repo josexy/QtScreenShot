@@ -282,7 +282,7 @@ void ToolWidget::on_btnErase_clicked()
     captureW->paintEventNotify=PaintEventNotify::Erase;
 
     triggerInputTextEdit();
-    captureW->shapeType=ShapeType::None;
+    captureW->shapeType=ShapeType::Unknown;
     captureW->painting=true;
     captureW->resizing=false;
 
