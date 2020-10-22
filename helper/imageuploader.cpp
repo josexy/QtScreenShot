@@ -13,7 +13,7 @@ void UploaderThread::run()
     if(!QFile::exists(script))return;
 
     QProcess proc;
-    proc.setEnvironment(proc.environment());
+    proc.setEnvironment(QProcess::systemEnvironment());
 
     QStringList params;
     params<<script;
