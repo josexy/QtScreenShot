@@ -23,7 +23,7 @@ extern bool kCapture_window_load;
 extern bool kSetting_window_load;
 
 enum class PaintEventNotify{
-    None,
+    Unknown,
     Pen,
     Shape,
     Text,
@@ -34,7 +34,7 @@ enum class PaintEventNotify{
 };
 
 enum class ShapeType{
-    None,
+    Unknown,
     // line
     Point,
     Curve,
@@ -56,7 +56,6 @@ enum class ShapeType{
     Blur,
     Brush
 };
-
 
 struct shape_object{
     QVector<QRect>rs;
