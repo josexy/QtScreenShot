@@ -1,5 +1,5 @@
 #include "activewindow.h"
-
+#include "core/core_system.h"
 #ifdef Q_OS_WIN
 #include <Windows.h>
 #elif defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
@@ -22,11 +22,11 @@ QVector<Rect> ActiveWindow::enum_window()
     Window win=XDefaultRootWindow(display);
     __enum_window(display,win);
 
-#elif Q_OS_WIN
+#elif defined(Q_OS_WIN)
     HWND hwnd=::GetWindow(::GetDesktopWindow(),GW_CHILD);
     RECT r;
     GetWindowRect(hwnd,&r);
-    ss.push_back(r);
+    rects.push_back(r);
 
     while(hwnd){
         hwnd=::GetWindow(hwnd,GW_HWNDNEXT);
