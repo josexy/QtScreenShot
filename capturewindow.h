@@ -3,6 +3,7 @@
 
 #include "core/core.h"
 #include "core/core_system.h"
+#include "helper/activewindow.h"
 #include "widget/toolwidget.h"
 #include "widget/inputtextedit.h"
 #include "widget/pixelpanel.h"
@@ -66,9 +67,7 @@ public:
 
     void init();
     void initShortcuts();
-#ifdef Q_OS_WIN
-    void topWindowRects();
-#endif
+
 protected slots:
     void cancel();
     void copyColorValue();
@@ -98,9 +97,7 @@ private:
     bool resizing;
     bool egeneral;
 
-#ifdef Q_OS_WIN
     bool cutTopWindow=false;
-#endif
 
     ToolWidget *toolWidget;
     ShapeTool *shapeTool;
@@ -124,6 +121,8 @@ private:
     vector<QPoint>freeLine;
 
     QPixmap subRegionPixmap;
+
+    QVector<Rect> rects;
 };
 
 #endif
