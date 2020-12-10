@@ -22,7 +22,7 @@ QVector<Rect> ActiveWindow::enum_window()
     HWND hwnd=::GetWindow(::GetDesktopWindow(),GW_CHILD);
     RECT r;
     GetWindowRect(hwnd,&r);
-    rects.push_back(r);
+    rects.push_back(Rect(r.top,r.left,r.bottom,r.right));
 
     while(hwnd){
         hwnd=::GetWindow(hwnd,GW_HWNDNEXT);
