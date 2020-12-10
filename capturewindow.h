@@ -68,6 +68,7 @@ public:
     void init();
     void initShortcuts();
 
+    QRect isContainSubRect(const QPoint &);
 protected slots:
     void cancel();
     void copyColorValue();

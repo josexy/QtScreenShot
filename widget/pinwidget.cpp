@@ -19,7 +19,7 @@ void PinWidget::paintEvent(QPaintEvent *e)
 {
     QPainter p(this);
     p.drawPixmap(rect(),__pixmap);
-    p.setPen(QPen(borderColor,2));
+    p.setPen(QPen(borderColor,4));
     p.drawRect(rect());
     QWidget::paintEvent(e);
 }

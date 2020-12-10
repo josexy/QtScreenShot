@@ -17,6 +17,14 @@ ToolWidget::ToolWidget(QWidget *parent) :
 
 void ToolWidget::initUI()
 {
+    if(qCore->getShadowEffect()){
+        auto dsEffect = new QGraphicsDropShadowEffect(this);
+        dsEffect->setBlurRadius(5);
+        dsEffect->setOffset(0);
+        dsEffect->setColor(QColor(Qt::black));
+        setGraphicsEffect(dsEffect);
+    }
+
     QHBoxLayout *hboxL=new QHBoxLayout(this);
     hboxL->setMargin(0);
     hboxL->setContentsMargins(qCore->borderPadding()/2,qCore->borderPadding()/2,qCore->borderPadding()/2,qCore->borderPadding()/2);
@@ -130,6 +138,9 @@ void ToolWidget::on_btnSave2File_clicked()
     QString filename=qCore->PixMap2ImageFile(qCore->getPixMap());
     on_btnCancel_clicked();
     qCore->getSysTray()->showMessage(tr("QtScreenShot notification"),tr("The image has been saved to a file"));
+    // copy filepath to clipboard
+    QClipboard *clipboard=QApplication::clipboard();
+    clipboard->setText(filename);
 
     if(qCore->getEnableUpload()){
         UploaderThread *th=new UploaderThread(filename);

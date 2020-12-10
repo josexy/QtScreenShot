@@ -7,6 +7,7 @@ UploaderThread::UploaderThread(const QString &fn,QObject *parent)
 
 void UploaderThread::run()
 {
+    __LOG__("Starting upload image to server!",1);
     if(filename.isEmpty()) return;
     QString appPath = QCoreApplication::applicationDirPath();
     QString script=QDir::toNativeSeparators(appPath+"/smms_uploader.py");
@@ -30,4 +31,5 @@ void UploaderThread::run()
     proc.waitForFinished();
 
     __LOG__(proc.readAllStandardOutput(),1);
+    __LOG__(proc.objectName(),1);
 }

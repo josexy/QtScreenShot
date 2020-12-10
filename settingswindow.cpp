@@ -10,7 +10,6 @@
 #include <QHeaderView>
 #include <QSettings>
 
-
 SettingsWindow::SettingsWindow(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::SettingsWindow)
@@ -272,7 +271,7 @@ void SettingsWindow::saveConfigurationFile()
     }catch(JsonException &err){
         __LOG__(err.what(),3);
     }
-
+    __LOG__("Save configuration successfully!",1);
     qCorerestore();
 }
 
@@ -376,4 +375,3 @@ void SettingsWindow::on_btnGetSaveDir_clicked()
     QString Dir=QFileDialog::getExistingDirectory(this);
     if(Dir.size()) ui->combSaveDir->setCurrentText(Dir);
 }
-

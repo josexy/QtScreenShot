@@ -1,28 +1,24 @@
 #include "activewindow.h"
 #include "core/core_system.h"
+
 #ifdef Q_OS_WIN
 #include <Windows.h>
-#elif defined(Q_OS_LINUX) || defined(Q_OS_UNIX)
-#include <X11/Xlib.h>
-#include <X11/Xutil.h>
-void __enum_window(Display*, Window);
-
+#include <vector>
 #endif
 
 QVector<Rect>rects;
 
-ActiveWindow::ActiveWindow() { rects.clear(); }
+ActiveWindow::ActiveWindow() {
+    rects.clear();
+}
 
+ActiveWindow::~ActiveWindow()
+{
+}
 QVector<Rect> ActiveWindow::enum_window()
 {
     rects.clear();
-
-#if defined (Q_OS_LINUX) || defined (Q_OS_UNIX)
-    Display *display=XOpenDisplay(0);
-    Window win=XDefaultRootWindow(display);
-    __enum_window(display,win);
-
-#elif defined(Q_OS_WIN)
+#ifdef Q_OS_WIN
     HWND hwnd=::GetWindow(::GetDesktopWindow(),GW_CHILD);
     RECT r;
     GetWindowRect(hwnd,&r);
@@ -43,7 +39,7 @@ QVector<Rect> ActiveWindow::enum_window()
     }
 
 #endif
-
+    // unique
     for(int i=0; i<rects.size(); i++){
         for(int j=i+1; j<rects.size(); j++){
             if(rects[i]==rects[j]){
@@ -56,30 +52,3 @@ QVector<Rect> ActiveWindow::enum_window()
     return rects;
 }
 
-
-#if defined (Q_OS_LINUX) || defined (Q_OS_UNIX)
-
-void __enum_window(Display* display, Window window)
-{
-    unsigned int i;
-
-    Window root, parent;
-    Window* children;
-    unsigned int n;
-    XQueryTree(display, window, &root, &parent, &children, &n);
-    if (children != NULL) {
-        XWindowAttributes attr;
-        for (i = 0; i < n; i++) {
-            XGetWindowAttributes(display,children[i],&attr);
-            int x=attr.x,y=attr.y,w=attr.width,h=attr.height;
-            if(x>=0 && y>=0 && w>3 && h>3){
-                Rect r(y,x,y+h,x+w);
-                rects.push_back(r);
-            }
-            __enum_window(display, children[i]);
-        }
-        XFree(children);
-    }
-}
-
-#endif

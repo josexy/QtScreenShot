@@ -212,6 +212,10 @@ void TMain::captureDesktop()
 {
     QString filename=qCore->grabScreen2File();
     systemTray->showMessage(tr("QtScreenShot notification"),tr("The image has been saved to a file"));
+    // copy filepath to clipboard
+    QClipboard *clipboard=QApplication::clipboard();
+    clipboard->setText(filename);
+
     __LOG__("Capture all desktop",1);
     if(qCore->getEnableUpload()){
         UploaderThread *th=new UploaderThread(filename);
@@ -246,6 +250,7 @@ void TMain::showSettingsDialog()
 
 void TMain::showCapatureWindow()
 {
+    __LOG__("Show capture window!",1);
     captureWindow=new CaptureWindow();
     captureWindow->setAttribute(Qt::WA_DeleteOnClose);
     captureWindow->show();
@@ -253,6 +258,7 @@ void TMain::showCapatureWindow()
 
 void TMain::showSettingsWindow()
 {
+    __LOG__("Show settings window!",1);
     settingsWindow=new SettingsWindow();
     settingsWindow->setTMain(this);
     settingsWindow->setAttribute(Qt::WA_DeleteOnClose);

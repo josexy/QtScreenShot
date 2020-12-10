@@ -48,11 +48,12 @@ int main(int argc, char *argv[])
 #ifndef Q_OS_WIN32
     QSharedMemory sm(a.applicationName());
     if(sm.attach()) sm.detach();
+    __LOG__("Application has been started",2);
 #endif
     QSharedMemory sm2(a.applicationName());
     if(sm2.attach()){
         semaphore.release();
-        __LOG__("Application has been startd!",2);
+        __LOG__("Application has been started!",2);
         return -1;
     }
     else{
@@ -62,6 +63,7 @@ int main(int argc, char *argv[])
     semaphore.release();
 
     TMain w;
+    __LOG__("TMain background window started!",1);
     w.showMinimized();
     w.setVisible(false);
 

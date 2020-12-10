@@ -17,7 +17,6 @@
 #include <QPainter>
 #include <QDebug>
 
-
 CaptureWindow::CaptureWindow(QWidget *parent) :
     QWidget(parent),
     d(0),
@@ -34,6 +33,7 @@ CaptureWindow::CaptureWindow(QWidget *parent) :
 
     ActiveWindow aw;
     rects=aw.enum_window();
+    __LOG__("Construct completely!",1);
 }
 
 
@@ -117,6 +117,8 @@ void CaptureWindow::initShortcuts()
     new QShortcut(QKeySequence(Qt::SHIFT+Qt::Key_Down),this,SLOT(downMove()));
     new QShortcut(QKeySequence(Qt::SHIFT+Qt::Key_Left),this,SLOT(leftMove()));
     new QShortcut(QKeySequence(Qt::SHIFT+Qt::Key_Right),this,SLOT(rightMove()));
+    __LOG__("Init shortkey completely!",1);
+
 }
 
 void CaptureWindow::copyColorValue()
@@ -475,6 +477,21 @@ void CaptureWindow::resizeRegion(const QPoint& fromPos,const QPoint&toPos,QRect 
     }else if(x2<x1&&y2>y1){
         r.setRect(x2,y1,x1-x2,y2-y1);
     }
+}
+
+QRect CaptureWindow::isContainSubRect(const QPoint& pos){
+    for(int i=0 ;i<rects.size(); i++){
+        for(int j=i+1; j<rects.size(); j++){
+            if(QRect(rects[i]).contains(pos)){
+                if(QRect(rects[i]).contains(rects[j])){
+                    return rects[j];
+                }else {
+                    return rects[i];
+                }
+            }
+        }
+    }
+    return QRect(-1,-1,0,0);
 }
 
 void CaptureWindow::mouseMoveEvent(QMouseEvent *event)

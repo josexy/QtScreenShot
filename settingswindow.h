@@ -43,7 +43,6 @@ protected slots:
     void on_combFontFamily_currentIndexChanged(int);
     void on_btnSaveConfig_clicked();
     void on_btnGetSaveDir_clicked();
-
 private:
     Ui::SettingsWindow *ui;
     core __core;
