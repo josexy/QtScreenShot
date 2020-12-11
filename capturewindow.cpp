@@ -31,8 +31,10 @@ CaptureWindow::CaptureWindow(QWidget *parent) :
     initShortcuts();
     init();
 
+#ifdef Q_OS_WIN
     ActiveWindow aw;
     rects=aw.enum_window();
+#endif
     __LOG__("Construct completely!",1);
 }
 
@@ -479,21 +481,6 @@ void CaptureWindow::resizeRegion(const QPoint& fromPos,const QPoint&toPos,QRect 
     }
 }
 
-QRect CaptureWindow::isContainSubRect(const QPoint& pos){
-    for(int i=0 ;i<rects.size(); i++){
-        for(int j=i+1; j<rects.size(); j++){
-            if(QRect(rects[i]).contains(pos)){
-                if(QRect(rects[i]).contains(rects[j])){
-                    return rects[j];
-                }else {
-                    return rects[i];
-                }
-            }
-        }
-    }
-    return QRect(-1,-1,0,0);
-}
-
 void CaptureWindow::mouseMoveEvent(QMouseEvent *event)
 {
     if(completed){
@@ -609,6 +596,7 @@ void CaptureWindow::mouseMoveEvent(QMouseEvent *event)
         }
         return;
     }
+#ifdef Q_OS_WIN
     if(!pressed) {
         for(auto x=rects.begin();x!=rects.end();x++){
             auto r=QRect(*x);
@@ -621,7 +609,7 @@ void CaptureWindow::mouseMoveEvent(QMouseEvent *event)
         update();
         return;
     }
-
+#endif
     setCursor(Qt::CrossCursor);
 
     movePixelPanel(event->pos());

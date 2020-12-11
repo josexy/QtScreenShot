@@ -1,10 +1,6 @@
 #include "activewindow.h"
 #include "core/core_system.h"
 
-#ifdef Q_OS_WIN
-#include <Windows.h>
-#include <vector>
-#endif
 
 QVector<Rect>rects;
 
@@ -15,17 +11,19 @@ ActiveWindow::ActiveWindow() {
 ActiveWindow::~ActiveWindow()
 {
 }
+
+#ifdef Q_OS_WIN
 QVector<Rect> ActiveWindow::enum_window()
 {
     rects.clear();
-#ifdef Q_OS_WIN
-    HWND hwnd=::GetWindow(::GetDesktopWindow(),GW_CHILD);
+
+    HWND hwnd=GetWindow(GetDesktopWindow(),GW_CHILD);
     RECT r;
     GetWindowRect(hwnd,&r);
     rects.push_back(Rect(r.top,r.left,r.bottom,r.right));
 
     while(hwnd){
-        hwnd=::GetWindow(hwnd,GW_HWNDNEXT);
+        hwnd=GetWindow(hwnd,GW_HWNDNEXT);
         int len=GetWindowTextLengthA(hwnd);
         if(len<=0)continue;
         if(!IsWindowVisible(hwnd))continue;
@@ -38,7 +36,6 @@ QVector<Rect> ActiveWindow::enum_window()
         }
     }
 
-#endif
     // unique
     for(int i=0; i<rects.size(); i++){
         for(int j=i+1; j<rects.size(); j++){
@@ -52,3 +49,5 @@ QVector<Rect> ActiveWindow::enum_window()
     return rects;
 }
 
+
+#endif
